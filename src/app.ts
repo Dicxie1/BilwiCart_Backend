@@ -1,6 +1,4 @@
 import express from 'express';
-import healthRouter from './routers/health.router';
-import userRoutes from './routers/userRoutes';
 import { env } from './config/env';
 import { AppDataSource } from './config/db';
 import { error } from 'console';
