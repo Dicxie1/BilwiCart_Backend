@@ -7,7 +7,6 @@
 */
 import z from 'zod';
 import dotenv from 'dotenv';
-import { error } from 'console';
 
 dotenv.config();
 
