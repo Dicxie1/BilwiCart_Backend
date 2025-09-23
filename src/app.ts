@@ -1,7 +1,6 @@
 import express from 'express';
 import { env } from './config/env';
 import { initializeDatasource } from './config/db';
-import { error } from 'console';
 
 const app = express();
 
