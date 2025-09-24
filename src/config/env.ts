@@ -22,13 +22,10 @@ const envSchema = z.object({
      DB_PASSWORD: z.string(),
      DB_NAME: z.string().min(1),
      DB_SYNCHRONIZE: z.coerce.boolean(),
-     /** 
      // ===== Autenticación =====
-     JWT_SECRET: z.string().min(32, 'JWT_SECRET debe tener al menos 32 caracteres'),
-     JWT_EXPIRES_IN: z.string().regex(/^\d+[mhd]$/, {
-     message: 'JWT_EXPIRES_IN debe ser un string como "30m", "2h", "1d"',
-      }),
-     */
+     JWT_SECRET: z.string().min(12, 'JWT_SECRET debe tener al menos 32 caracteres'),
+     JWT_EXPIRES_IN: z.string().min(1, 'JWT_EXPIRES_IN es obligatorio'),
+    PASSWORD_SALT_ROUNDS : z.coerce.number().int().min(10).default(12),
 });
 export type Env = z.infer<typeof envSchema>;
 export  const env: Env = envSchema.parse(process.env);
