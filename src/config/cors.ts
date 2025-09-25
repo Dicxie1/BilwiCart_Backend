@@ -42,7 +42,7 @@ interface CustomCorsOptions extends CorsOptions {
 }
 
 // Origenes permitidos para CORS
-const allowedOrigins = (): string[] => {
+export const allowedOrigins = (): string[] => {
     const allowedOrigins = [
         'http://localhost:5173', // default vite dev server
         'http://localhost:4173', // default vite test server
@@ -53,25 +53,12 @@ const allowedOrigins = (): string[] => {
     }
     return allowedOrigins;
 }
-export function getAllowedOrigins(): string[] {
-  const allowedOrigins = [
-    env.FRONTEND_URL, // Origen principal (desde .env)
-  ];
-
-  // En desarrollo, permite también localhost
-  if (env.NODE_ENV === 'development') {
-    allowedOrigins.push('http://localhost:5173'); // Frontend en desarrollo
-    allowedOrigins.push(`http://localhost:${env.PORT}`); // Backend en desarrollo
-  }
-
-  return allowedOrigins;
-}
 
 // Configuración base de CORS
 export const corsOptions : CorsOptions = {
     origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
         if(!origin) return callback(null, true);
-        const allowedOpetions = getAllowedOrigins();
+        const allowedOpetions = allowedOrigins();
         // verificar si el origen de la solicitud está en la lista de permitidos
         if(allowedOpetions.indexOf(origin) !== -1){
             return callback(null, true);
@@ -112,11 +99,3 @@ export const corsDelegate: CorsOptionsDelegate = (req, callback) => {
     const options = corsMiddleware(isDev);
     callback(null, options);
 }
-/**
-const getAllowedOrigins = (): string => {
-    const allowedOrigins = [
-        env.FRONTEND_URL,
-    ];
-    return allowedOrigins;
-}
-*/

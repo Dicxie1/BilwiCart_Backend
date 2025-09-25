@@ -5,9 +5,8 @@ import { env } from './config/env';
 import { initializeDatasource } from './config/db';
 import authRoutes from './routers/authRouter';
 const app = express();
-
-app.use(express.json());
 app.use(cors(corsOptions));
+app.use(express.json());
 app.use('/auth', authRoutes);
 
 
