@@ -16,8 +16,8 @@ export const register = async(req: Request, res: Response) =>{
 
 export const login = async (req: Request, res: Response) => {
     try{
-        const {email, passwd} = req.body;
-        const {user, token} = await AuthService.login(email, passwd);
+        const {email, password} = req.body;
+        const {user, token} = await AuthService.login(email, password);
         sendSuccess(res, {user, token}, 'Inicion de session exitosa');
     }catch(err){
         if(err instanceof Error) return sendError(res, err.message, 401);
