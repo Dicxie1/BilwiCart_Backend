@@ -1,4 +1,4 @@
-import { User } from "../models/user";
+import { User } from "../models/userModel";
 import { AppDataSource } from "../config/db";
 import *  as bcrypt from 'bcrypt';
 import { sign, SignOptions } from 'jsonwebtoken';
