@@ -8,7 +8,7 @@ export const register = async(req: Request, res: Response) =>{
         sendSuccess(res, user, "Se ha registrodo");
     }catch(err){
         if(err instanceof Error){
-                sendError(res, err.message, 400);
+                return sendError(res, err.message, 400);
         }
         sendError(res, "Error al registrar el usuario", 500);
       }
@@ -20,7 +20,7 @@ export const login = async (req: Request, res: Response) => {
         const {user, token} = await AuthService.login(email, passwd);
         sendSuccess(res, {user, token}, 'Inicion de session exitosa');
     }catch(err){
-        if(err instanceof Error) sendError(res, err.message, 401);
+        if(err instanceof Error) return sendError(res, err.message, 401);
         sendError(res, 'Error al iniciar sesión', 500);
     }
 }

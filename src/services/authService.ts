@@ -11,6 +11,8 @@ export class AuthService{
     static async register(userData: Omit<User, 'id' | 'create_at' | 'update_at' | 'sexo'>) : Promise<Omit<User, 'password' | 'sexo'>>{
         const existingUser = await this.userRepository.findOneBy({email: userData.email});
         if(existingUser) throw new Error('El email ya esta en uso');
+        const userNameExists = await this.userRepository.findOneBy({username: userData.username});
+        if(userNameExists) throw new Error('El nombre de usuario ya esta en uso');
         const hashedPassword = await bcrypt.hash(userData.password, env.PASSWORD_SALT_ROUNDS);
         const user = this.userRepository.create({...userData, password: hashedPassword});
         const saveUser = await this.userRepository.save(user);
