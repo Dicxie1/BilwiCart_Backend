@@ -14,6 +14,8 @@ const envSchema = z.object({
     // ====== Server ==========
     PORT : z.coerce.number({error: "No valido"}).int().default(300),
     NODE_ENV : z.enum(['development', 'test', 'production'], {error: "valor no valido"}).default('development'), 
+    // ======= Origen ==========
+    FRONTEND_URL: z.url({message: 'FRONTEND_URL debe ser una URL valida'}),
      // ===== Base de Datos =====
      DB_TYPE: z.enum(["postgres", "mysql", "mariadb"]),
      DB_HOST: z.string().min(1, 'DB_HOST es obligatorio'),
