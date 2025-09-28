@@ -1,6 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany,OneToOne, JoinColumn } from "typeorm";
 import { Product } from "./productModel";
-import { User } from "./userModel";
+import { Vendor } from "./vendorModel";
 @Entity()
 export class Store{
     @PrimaryGeneratedColumn()
@@ -20,9 +20,6 @@ export class Store{
 
     @Column({type: 'varchar', length: 100})
     email!: string;
-    
-    @Column({type: 'varchar', length: 100})
-    manager!: string;
 
     @Column({type: 'boolean', default: true})
     isActive!: boolean;
@@ -30,7 +27,6 @@ export class Store{
     @OneToMany(()=> Product, (product)=> product.storeId)
     product!: Product[];
 
-     @OneToOne(()=> User)
-    @JoinColumn()
-    user!: User;
+    @OneToOne(()=> Vendor, (vendor)=> vendor.store)
+    vendor!: Vendor;
 }

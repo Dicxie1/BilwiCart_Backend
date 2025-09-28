@@ -1,12 +1,13 @@
 /**
  * 
  */
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne, OneToOne, JoinColumn } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne, OneToOne, JoinColumn, ManyToMany } from "typeorm";
 import { Review } from "./reviewModel";
 import { Category } from "./categoryModel";
 import { ProductImages } from "./productImgagesModel";
 import { Store } from "./storeModel";
-import { User } from "./userModel";
+import { Order } from "./orderModel";
+import { DetailOrder } from "./detailOrderModel";
 export enum ProductStatusEnum {
     ACTIVE = 'active',
     INACTIVE = 'inactive'
@@ -37,6 +38,9 @@ export class Product {
 
     @OneToMany(() => Review, (review) => review.productId)
     reviews!: Review[];
+
+    @OneToMany(()=> DetailOrder, (detailOrder)=> detailOrder.idDetailOrder)
+    detailOrder!: DetailOrder[];
 
     @ManyToOne(() => Category, (category) => category.products, {eager: true})
     category!: Category;

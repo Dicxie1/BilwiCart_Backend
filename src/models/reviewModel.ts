@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, Check } from "typeorm";
-import { User }  from "./userModel";
+import { Costumer }  from "./costumerModel";
 import { Product } from "./productModel";
 @Entity('reviews')
 @Check('"rating">= 0 AND "rating" <= 5')
@@ -17,6 +17,6 @@ export class Review  {
     @ManyToOne(()=> Product, (product)=> product.idProduct)
     productId!: number;
     
-    @ManyToOne(() => User, (user) => user.reviews, {eager: true})
-    user!: number;
+    @ManyToOne(() => Costumer, (costumer) => costumer.reviews, {eager: true})
+    costumer!: number;
 }
