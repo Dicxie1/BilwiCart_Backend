@@ -1,5 +1,5 @@
 import { PrimaryGeneratedColumn, Column, ManyToOne, OneOrMore, OneToMany, Entity } from "typeorm";
-import { User } from "./userModel";
+import { Costumer } from "./costumerModel";
 import { DetailOrder } from "./detailOrderModel";
 export enum OrderStatusEnum {
     PENDING = 'pending',
@@ -19,8 +19,8 @@ export class Order {
     @Column({type: 'enum', enum: OrderStatusEnum, default: OrderStatusEnum.PENDING})
     status!: string;
 
-    @ManyToOne(() => User, (user) => user.orders)
-    user!: number;
+    @ManyToOne(() => Costumer, (costumer) => costumer.orders)
+    costumer!: number;
 
     @OneToMany(() => DetailOrder, (detailOrder) => detailOrder.order)
     detailOrders!: DetailOrder[];
