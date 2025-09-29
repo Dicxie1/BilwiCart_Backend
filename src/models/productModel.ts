@@ -1,0 +1,58 @@
+/**
+ * 
+ */
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne, OneToOne, JoinColumn, ManyToMany } from "typeorm";
+import { Review } from "./reviewModel";
+import { Category } from "./categoryModel";
+import { ProductImages } from "./productImgagesModel";
+import { Store } from "./storeModel";
+import { Order } from "./orderModel";
+import { DetailOrder } from "./detailOrderModel";
+export enum ProductStatusEnum {
+    ACTIVE = 'active',
+    INACTIVE = 'inactive'
+}
+
+@Entity('products')
+export class Product {
+    @PrimaryGeneratedColumn()
+    idProduct!: number;
+
+    @Column({type: 'varchar', length: 150})
+    name!: string;
+
+    @Column({type: 'text'})
+    description!: string;
+
+    @Column({type: 'decimal', precision: 10, scale: 2})
+    price!: number;
+
+    @Column({type: 'enum', enum: ProductStatusEnum, default: ProductStatusEnum.ACTIVE})
+    status!: string;
+
+    @Column({type: 'int'})
+    stock!: number;
+
+    @Column({type: 'boolean', nullable: true})
+    isDiscout!: boolean ;
+
+    @Column({type: 'boolean', nullable: true})
+    isPromo!: boolean;
+
+    @ManyToOne(() => Store, (store) => store.product, {nullable: false})
+    @JoinColumn({name: 'storeId'})
+    storeId!: number;
+
+    @OneToMany(() => Review, (review) => review.productId)
+    reviews!: Review[];
+
+    @OneToMany(()=> DetailOrder, (detailOrder)=> detailOrder.idDetailOrder)
+    detailOrder!: DetailOrder[];
+
+    @ManyToOne(() => Category, (category) => category.products, {eager: true, nullable: false})
+    @JoinColumn({name: 'category'})
+    category!: Category;
+
+    @OneToMany(() => ProductImages, (productImages) => productImages.product)
+    images!: ProductImages[]
+}

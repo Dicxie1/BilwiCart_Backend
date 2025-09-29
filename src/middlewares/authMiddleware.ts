@@ -12,7 +12,7 @@ declare global {
   }
 }
 
-export const authMiddleware = (res: Response, req: Request, next: NextFunction) => {
+export const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
   // Obtener el token del header Authorization
   const authHeader = req.headers.authorization;
   if (!authHeader) {

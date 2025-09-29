@@ -4,11 +4,14 @@ import cors from 'cors';
 import { env } from './config/env';
 import { initializeDatasource } from './config/db';
 import authRoutes from './routers/authRouter';
+import  productRouter from './routers/productRouter';
+import storeRoute from './routers/storeRoute';
 const app = express();
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use('/auth', authRoutes);
-
+app.use('/products', productRouter);
+app.use('/store', storeRoute);
 
 initializeDatasource()
     .then( () => {
