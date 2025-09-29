@@ -33,7 +33,14 @@ export class Product {
     @Column({type: 'int'})
     stock!: number;
 
-    @ManyToOne(() => Store, (store) => store.product)
+    @Column({type: 'boolean', nullable: true})
+    isDiscout!: boolean ;
+
+    @Column({type: 'boolean', nullable: true})
+    isPromo!: boolean;
+
+    @ManyToOne(() => Store, (store) => store.product, {nullable: false})
+    @JoinColumn({name: 'storeId'})
     storeId!: number;
 
     @OneToMany(() => Review, (review) => review.productId)
@@ -42,7 +49,8 @@ export class Product {
     @OneToMany(()=> DetailOrder, (detailOrder)=> detailOrder.idDetailOrder)
     detailOrder!: DetailOrder[];
 
-    @ManyToOne(() => Category, (category) => category.products, {eager: true})
+    @ManyToOne(() => Category, (category) => category.products, {eager: true, nullable: false})
+    @JoinColumn({name: 'category'})
     category!: Category;
 
     @OneToMany(() => ProductImages, (productImages) => productImages.product)
